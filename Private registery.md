@@ -56,3 +56,62 @@
 
 6. **Nexus Repository OSS/Pro**:
    - ابزار سوناتایپ (Sonatype) که امکان میزبانی و مدیریت رجیستری‌های خصوصی برای انواع مختلف بسته‌ها را فراهم می‌کند.
+
+
+
+
+
+
+
+
+
+
+Container registry 
+
+در GitLab یکی از قابلیت‌های این پلتفرم DevOps است که به تیم‌ها امکان می‌دهد تا تصاویر داکر (Docker images) خود را مستقیماً در کنار کد منبع خود ذخیره و مدیریت کنند. این ویژگی به توسعه‌دهندگان کمک می‌کند تا روند توسعه، تست و استقرار برنامه‌ها را ساده‌تر و یکپارچه‌تر کنند. در ادامه به توضیحات بیشتری درباره این قابلیت می‌پردازیم:
+
+
+2. **ورود به Docker Registry**: با استفاده از دستورات زیر می‌توانید به registry وارد شوید:
+    ```sh
+    docker login registry.gitlab.com
+    ```
+    نام کاربری و رمز عبور خود را وارد کنید. برای احراز هویت می‌توانید از personal access token هم استفاده کنید.
+
+3. **ساخت و برچسب‌گذاری (tag) تصاویر**: پس از ساخت تصویر داکر خود، آن را برچسب‌گذاری کنید تا در GitLab registry آپلود شود:
+    ```sh
+    docker build -t registry.gitlab.com/your-username/your-project/image-name:tag .
+    ```
+
+4. **پوش (Push) کردن تصاویر**: تصویر برچسب‌گذاری شده را به GitLab registry پوش کنید:
+    ```sh
+    docker push registry.gitlab.com/your-username/your-project/image-name:tag
+    ```
+
+5. **استفاده از تصاویر در پایپ‌لاین CI/CD**: در فایل `.gitlab-ci.yml` خود می‌توانید از این تصاویر استفاده کنید:
+    ```yaml
+    image: registry.gitlab.com/your-username/your-project/image-name:tag
+
+    stages:
+      - build
+      - test
+      - deploy
+
+    build-job:
+      stage: build
+      script:
+        - echo "Building..."
+
+    test-job:
+      stage: test
+      script:
+        - echo "Testing..."
+
+    deploy-job:
+      stage: deploy
+      script:
+        - echo "Deploying..."
+    ```
+
+### نتیجه‌گیری
+
+Container Registry در GitLab یک ابزار قدرتمند برای مدیریت تصاویر داکر است که با قابلیت‌های پیشرفته‌ی CI/CD این پلتفرم یکپارچه شده است. این ویژگی به تیم‌های توسعه‌دهنده کمک می‌کند تا فرآیند توسعه و استقرار را بهبود بخشیده و تصاویر داکر خود را به طور متمرکز و امن مدیریت کنند.
