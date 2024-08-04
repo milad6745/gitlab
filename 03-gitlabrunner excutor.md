@@ -2,6 +2,10 @@
 
 در GitLab، یک runner executor نوعی از runner است که وظیفه اجرای jobها در یک محیط مشخص را بر عهده دارد. در اصل، executor تعیین می‌کند که jobها چگونه و در چه محیطی اجرا شوند. GitLab CI/CD از چندین نوع executor پشتیبانی می‌کند که هر کدام برای نیازهای مختلف و محیط‌های کاری خاصی طراحی شده‌اند. در ادامه، انواع مختلف runner executorها را توضیح می‌دهیم:
 
+
+![image](https://github.com/user-attachments/assets/02fd2249-e530-498e-918f-6af544aa404e)
+
+
 ### انواع Runner Executors
 
 1. **Shell Executor**
