@@ -1,20 +1,20 @@
-# install gitlab runner
+## install gitlab runner
 
 setting > CICD > gitlab runner > expand > new gitlab runner for project
 
 
 کامند های زیر را بر روی runner اجرا میکنیم . یک سیستم لینوکس دیگر
 
-# Download the binary for your system
+## Download the binary for your system
 sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
 
-# Give it permission to execute
+## Give it permission to execute
 sudo chmod +x /usr/local/bin/gitlab-runner
 
-# Create a GitLab Runner user
+## Create a GitLab Runner user
 sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
 
-# Install and run as a service
+## Install and run as a service
 sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
 sudo gitlab-runner start
 
