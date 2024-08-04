@@ -41,3 +41,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 Configuration (with the authentication token) was saved in "/etc/gitlab-runner/config.toml"
 
 ```
+
+و در نهایت 
+
+![image](https://github.com/user-attachments/assets/1e2ef40a-6dab-468a-a1eb-a3851c311f59)
