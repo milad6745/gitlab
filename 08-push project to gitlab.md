@@ -15,8 +15,7 @@ git push -u origin master
 
 نکته :
 ما میتوانیم چندین تا origin داشته باشیم پس از ادد کردن origin های متفاوت میتوانیم با کامند زیر ببینیم به جه origin هایی متصل هست .
-
-‍‍‍‍‍‍‍‍```
+```
 git remote -v
 origin	https://gitlab.com/test7522003/dj.git (fetch)
 origin	https://gitlab.com/test7522003/dj.git (push)
