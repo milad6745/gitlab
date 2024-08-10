@@ -55,5 +55,23 @@ apt install npm
 6. اگر همه چیز به درستی تنظیم شده باشد، سرور شما در حال اجرا است و می‌توانید با باز کردن مرورگر و وارد کردن آدرس `http://localhost:3000` پیام "Hello World" را ببینید.
 
 
+## write a gitlabci
+![image](https://github.com/user-attachments/assets/156c5a9d-1c17-4652-994e-fb54cc6e6711)
+
 
 ## upload a project to gitlab
+```
+git init
+git add .
+git commit -m "Push existing project to GitLab"
+git remote add origin https://gitlab.com/cameronmcnz/example-website.git
+git push -u origin master
+```
+
+
+حالا وقتی pipe line اجرا میشود میبینیم که پایپ لاین در مرحله Deploy فیلد میشود .
+این برای این است که پایپ لاین ما باید با اولویت اجرا شود اما هر دو جاب با هم اجرا میشوند و قبل از build شدن میخواهد که Deploy شود که ارور میگیرد .
+برای این کار باید مراحل را به جای اینکه داخل یک stage قرار دهیم به جاب های دیگری تبدیل کنیم که با اولویت اجرا شود .
+
+
+
