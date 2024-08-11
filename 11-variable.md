@@ -63,3 +63,13 @@ build:
   script:
     - echo "Connecting to database at $DATABASE_URL"
 ```
+
+### ٍExample
+```
+job1:
+  script:
+    - echo $CI_COMMIT_MESSAGE 
+    - echo $CI_JOB_NAME
+```
+![image](https://github.com/user-attachments/assets/ccd4d553-71c5-4ceb-a700-1a03b1bb19ca)
+
