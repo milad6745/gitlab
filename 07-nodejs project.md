@@ -88,5 +88,30 @@ git push -u origin master
 ![image](https://github.com/user-attachments/assets/ae326e66-3e5d-419c-986b-50fe466165f4)
 
 
+# بهبود pipe line
+
+```
+stages:
+  - build
+  - deploy
+
+build:
+  image: node
+  stage: build
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+      - package-lock.json
+
+deploy:
+  image: node
+  stage: deploy
+  script:
+    - node index.js
+
+```
+در اینجا داخل pipe line امان میگوییم که از ایمیج Node استفاده کن و نیاز به نصب dependency ها نداری
 
 
