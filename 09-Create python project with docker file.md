@@ -26,10 +26,29 @@ if __name__ == '__main__':
 ```
 FROM python:3.8.0-slim
 WORKDIR /app
-ADD. /app
+ADD . /app
 RUN pip install-trusted-host pypi.python.org Flask
 ENV NAME Mark
 CMD ["python", "app.py"]
 ```
+
+### create gitlab-ci.yml
+```
+stages:
+  - build_stage
+  - deploy_stage
+
+build:
+  stage: build_stage
+  script:
+    - docker --version
+    - docker build -t pyapp .
+
+deploy:
+  stage: deploy_stage
+  script:
+    - docker run --name pyappcontainer -p 9090:9090 pyapp
+```
+
 
 
