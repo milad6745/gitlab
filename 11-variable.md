@@ -64,7 +64,7 @@ build:
     - echo "Connecting to database at $DATABASE_URL"
 ```
 
-### ٍExample
+### ٍExample Env Variable
 ```
 job1:
   script:
@@ -72,4 +72,32 @@ job1:
     - echo $CI_JOB_NAME
 ```
 ![image](https://github.com/user-attachments/assets/ccd4d553-71c5-4ceb-a700-1a03b1bb19ca)
+
+### Example custome Variables
+```
+variables:
+  NAME: 'milad'
+  FAMILY: 'Baousi'
+  OS: 'Linux'
+
+job1:
+  script:
+    - echo My Name is $NAME $FAMILY os is $OS
+```
+![image](https://github.com/user-attachments/assets/43ebc743-b300-4dd8-8dc2-ea834c81b2ff)
+
+
+### Secret Variable on Gitlab
+```
+login:
+  script:
+    - echo $PASSWORD | docker login -u "$USER" --password-stdin
+    - echo $PASSWORD | docker login -u "$USER" --password-stdin
+    - docker tag pyapp:latest $USER/myadd:latest
+    - docker  push $USER/myadd:latest
+```
+Go to -> CICD > Variable
+![image](https://github.com/user-attachments/assets/ccfc5e7d-610c-468a-a7d2-d16bb4766597)
+
+
 
