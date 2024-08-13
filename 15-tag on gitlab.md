@@ -65,3 +65,9 @@ Production:
     - docker-compose up -d  
 بعد از تست، کانتینرها را متوقف می‌کند
 ```
+
+بعد از اجرای پایپ لاین هر قسمت با یک رانر اجرا میشود .
+
+![image](https://github.com/user-attachments/assets/01b56c3a-09c1-480b-80f6-78a31f033464)
+![image](https://github.com/user-attachments/assets/704be1da-b4de-44ff-b359-05934606e099)
+
