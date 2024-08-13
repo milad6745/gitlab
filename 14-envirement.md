@@ -15,6 +15,35 @@ open project > operate > envirement
 
 
 
+در pipeline زیر ما مرحله ای که قرار است در production اجرا شود را دستی قرار دادیم که بعد از اینکه همه چیز اکی بود در production هم انجام دهد
+```
+test:
+  stage: test
+  environment:
+    name: Test
+  script:
+    - docker-compose up -d  
+    - sleep 5  
+    - docker-compose ps  
+    - docker-compose logs app  
+    - docker-compose down 
+  only:
+    - main  # اجرا در برنچ main
 
+Production:
+  stage: test
+  environment:
+    name: Producation
+  when: manual
+  script:
+    - docker-compose up -d  
+    - sleep 5  
+    - docker-compose ps 
+    - docker-compose logs app 
+    - docker-compose down
+  only:
+    - main  # اجرا در برنچ main
+
+```
 
 ![image](https://github.com/user-attachments/assets/b9a2590e-081f-45be-b060-ac3da8d3e1ff)
