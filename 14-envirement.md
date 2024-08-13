@@ -47,3 +47,7 @@ Production:
 ```
 
 ![image](https://github.com/user-attachments/assets/b9a2590e-081f-45be-b060-ac3da8d3e1ff)
+
+project > operate > envirement
+![image](https://github.com/user-attachments/assets/40491cfb-a6ad-4b85-8892-74a3ca7d0ed9)
+
