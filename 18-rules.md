@@ -66,3 +66,17 @@ deploy_job:
     - if: '$CI_COMMIT_TAG =~ /^v[0-9]+(\.[0-9]+)*$/'  # فقط وقتی یک tag با الگوی vX.X.X ایجاد شده باشد
 ```
 ![image](https://github.com/user-attachments/assets/ebc7e66d-1223-49cc-a2d0-4a4efdc75bd3)
+
+همچنین میتوانیم از Only هم استفاده کنیم ولی استفاده از rule خیلی حرفه ای تر است .
+
+```
+stages:
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - echo "Building the project..."
+  only:
+    - Prob  # فقط در برنچ 'Prob' اجرا می‌شود
+```
