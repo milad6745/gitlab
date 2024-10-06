@@ -5,6 +5,7 @@
 
 حال برای اینکه موقعی که هر دفعه Pipeline را اجرا میکنیم بهمون نگوید که همچین container ای در حال اجرا است باید در pipe line تغییراتی بدهیم.
 
+```
 stages:
   - build_stage
   - deploy_stage
@@ -20,3 +21,4 @@ deploy:
   script:
     - docker stop pyappcontainer && docker rm -f pyappcontainer
     - docker run --name pyappcontainer -p 9090:9090 pyapp
+```
