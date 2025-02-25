@@ -21,4 +21,6 @@ deploy_to_production:
 🔹 این Job در **Pipeline** نمایش داده می‌شود اما **اتوماتیک اجرا نمی‌شود**.  
 🔹 باید به **GitLab UI** بروید و دکمه **Play** را برای اجرای آن بزنید.
 
-![image](https://github.com/user-attachments/assets/9db13423-10d1-42b4-8657-abf48d04dbe6)
+![8kUIV](https://github.com/user-attachments/assets/cc025aca-89bd-4a61-b02f-8c9c9a6eeeec)
+
+
