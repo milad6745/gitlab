@@ -313,49 +313,7 @@ kubectl apply -f service.yaml
 curl http://<Node-IP>:30007/
 ```
 
-خیلی خوب! 😎
-حالا برای اینکه با هر push کد، اپلیکیشن به صورت **اتوماتیک** build بشه، به GitLab Registry push بشه و روی **Kubernetes Deploy** بشه، فایل `.gitlab-ci.yml` زیر رو استفاده کن:
-
----
-
-## 🛠️ فایل `.gitlab-ci.yml`
-
-```yaml
-stages:
-  - build
-  - deploy
-
-variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-
-before_script:
-  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-
-build:
-  stage: build
-  image: docker:24.0.5
-  services:
-    - docker:dind
-  script:
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
-
-deploy:
-  stage: deploy
-  image:
-    name: bitnami/kubectl:latest
-    entrypoint: [""]
-  script:
-    - echo "$KUBECONFIG_DATA" | base64 -d > kubeconfig
-    - export KUBECONFIG=$CI_PROJECT_DIR/kubeconfig
-    - kubectl config use-context default
-    - kubectl set image deployment/myapp-deployment myapp-container=$IMAGE_TAG
-    - kubectl rollout status deployment/myapp-deployment
-  only:
-    - main  # یا master بسته به نام شاخه اصلی پروژه‌ات
-```
-
----
+حالا در گیت لب یک پروژه تعریف میکنیم و variable های زیر را برایش ایجاد میکنیم .
 
 ## 🔐 GitLab CI Variables
 
@@ -375,19 +333,86 @@ deploy:
 cat ~/.kube/config | base64 -w 0
 ```
 
+به مسیر فایل های پروژه میرویم و روی گیت پوش میکنیم .
+
+```
+git init
+git add .
+git commit -m ''
+git branch -m master main
+git push --set-upstream origin main
+```
+حالا پروژه مان داخل پروژه گیت لب ریخته شد و اتوماتیک شروع میکنه به استارت gitlabci و ارور میده چون داخل kubeconfig ما گفته شده به 127.0.0.1 متصل شد.
+برای رفع این مورد باید از gitlabrunner داخل خود master استفاده کنیم که به کلاستر برای deploy روی کلاستر دسترسی دارد .
+
+* ایجاد گیت لب دانر و غیر فعال کردن instance runner
+
+سؤال خیلی خوبی پرسیدی — انتخاب نوع **executor** در GitLab Runner به شدت به محیط شما بستگی دارد، ولی چون گفتی می‌خواهی Runner را **روی سیستم خودت نصب کنی و مستقیماً به کوبرنتیزت دسترسی داشته باشی**، در اینجا بهترین انتخاب:
+
 ---
 
-## ✅ نتیجه نهایی
+## ✅ پیشنهاد من: `shell` executor
 
-با هر بار push به شاخه `main`:
+### چرا؟
 
-1. ایمیج ساخته می‌شه با tag جدید (SHA commit)
-2. به GitLab Registry push می‌شه
-3. deployment در Kubernetes آپدیت می‌شه با ایمیج جدید
+* چون Runner روی همون سیستم (یا شبکه) نصب شده که به کوبرنتیزت دسترسی داره.
+* چون kubeconfig و ابزارهایی مثل `kubectl` یا `docker` از قبل روی سیستم نصب هستن.
+* نیازی نیست داخل کانتینر باشه (مثل `docker` executor) که دردسر نصب ابزار رو داشته باشی.
 
 ---
 
-اگر بخوای فایل YAML deployment و service رو هم در قالب یک Helm chart برای استفاده حرفه‌ای‌تر تنظیم کنم یا دیپلوی با ArgoCD راه بندازم، کافیه بگی.
+### مزایای `shell` executor:
 
-آیا می‌خوای این CI رو با Helm ادغام کنم هم؟
+* سریع و ساده برای شروع.
+* راحت به فایل‌ها و ابزارهای نصب‌شده روی سیستم دسترسی داره.
+* مناسب برای توسعه‌دهنده‌هایی که CI/CD رو در یک محیط ساده اجرا می‌کنن.
+
+---
+
+## 💡 روش راه‌اندازی GitLab Runner با `shell` executor
+
+### 1. نصب GitLab Runner
+
+```bash
+# برای اوبونتو/دبیان:
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+sudo apt install gitlab-runner
+```
+
+### 2. ثبت Runner به پروژه‌ات
+
+```bash
+sudo gitlab-runner register
+```
+
+در مراحل ثبت:
+
+* GitLab URL → آدرس GitLab مثل: `https://gitlab.com/`
+* Token → از پروژه‌ات در GitLab > Settings > CI/CD > Runners
+* Description → یه اسم مثل: `my-shell-runner`
+* Tags → مثلا `local`
+* Executor → بنویس: `shell`
+
+---
+
+### تست
+حالا یه فایل resume.html را تغییر میدهیم 
+```
+git add .
+git commit -m ''
+git push --set-upstream origin main
+```
+سپس فایل gitlab ci شروع میکنه به فرایند cicd
+
+
+![image](https://github.com/user-attachments/assets/cd2d861e-5b0f-44c3-82d6-615cbe126061)
+
+![image](https://github.com/user-attachments/assets/2aaf8ade-0527-4650-8972-c7907ee14317)
+
+![image](https://github.com/user-attachments/assets/45fc9e15-1ef6-4937-9458-6bf06a6d9fd0)
+
+
+
+
+
 
