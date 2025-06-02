@@ -262,6 +262,8 @@ git push origin HEAD:main || echo "Push failed"
 
 * فقط فایل `deployment.yaml` رو به‌روز می‌کنی و push می‌زنی به main
 * Argo CD که روی اون ریپو واچ گذاشته، به‌صورت اتوماتیک این تغییر رو sync و deploy می‌کنه
+* آرگو به deployment ما نگاه میکنه و هر موقع عوض بشه روی کلاستر اعمال میکنه .
+* 
 * بنابراین GitLab هیچ ارتباط مستقیمی با کلاستر نداره — این یه الگوی **Pull-based GitOps** هست (خالص و اصولی ✅)
 
 ---
